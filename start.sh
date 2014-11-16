@@ -7,6 +7,6 @@ if ( id ${USER} ); then
   exit 1
 fi
 
-useradd -d /data -m -p ${ENC_PASS} -u 1000 -s /bin/false ${USER}
+useradd -d /data -m -p ${ENC_PASS} -u 1000 -s /bin/sh ${USER}
 
 exec /usr/sbin/sshd -D
