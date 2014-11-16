@@ -9,4 +9,4 @@ fi
 
 useradd -d /data -m -p ${ENC_PASS} -u 1000 -s /bin/false ${USER}
 
-exec /usr/sbin/sshd
+exec /usr/sbin/sshd -D
