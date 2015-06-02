@@ -3,6 +3,7 @@ MAINTAINER Knut Ahlers <knut@ahlers.me>
 
 ENV USER share
 ENV PASS changeme
+ENV USER_UID 1000
 
 RUN apt-get update && \
     apt-get install -y openssh-server mcrypt && \
