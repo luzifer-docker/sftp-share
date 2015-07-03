@@ -1,12 +1,11 @@
 #!/bin/bash
 
-ENC_PASS=$(perl -e 'print crypt($ARGV[0], "password")' ${PASS})
-
 if ( id ${USER} ); then
-  echo "FATAL: User ${USER} already exists"
-  exit 1
+    echo "INFO: User ${USER} already exists"
+else
+    echo "INFO: User ${USER} does not exists, we create it"
+    ENC_PASS=$(perl -e 'print crypt($ARGV[0], "password")' ${PASS})
+    useradd -d /data -m -p ${ENC_PASS} -u ${USER_UID} -s /bin/sh ${USER}
 fi
-
-useradd -d /data -m -p ${ENC_PASS} -u 1000 -s /bin/sh ${USER}
 
 exec /usr/sbin/sshd -D
