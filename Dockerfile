@@ -21,5 +21,4 @@ ADD sshd_config /etc/ssh/sshd_config
 VOLUME ["/data", "/ssh"]
 EXPOSE 22
 
-ENTRYPOINT ["/usr/local/bin/dumb-init"]
-CMD ["/usr/local/bin/start.sh"]
+ENTRYPOINT ["/usr/local/bin/start.sh"]
