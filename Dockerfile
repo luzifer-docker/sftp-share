@@ -9,7 +9,7 @@ ENV USER_UID 1000
 ENV DI_VERSION 1.2.1
 
 
-RUN apk --no-cache add bash curl openssh-server openssl shadow \
+RUN apk --no-cache add bash curl openssh-server openssh-sftp-server openssl shadow \
  && mkdir /var/run/sshd && chmod 0755 /var/run/sshd \
  && curl -sSfLo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DI_VERSION}/dumb-init_${DI_VERSION}_amd64 \
  && chmod +x /usr/local/bin/dumb-init \
