@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 for type in rsa dsa ecdsa ed25519; do
   if ! [ -e "/ssh/ssh_host_${type}_key" ]; then
@@ -13,7 +14,7 @@ if ( id ${USER} ); then
     echo "INFO: User ${USER} already exists"
 else
     echo "INFO: User ${USER} does not exists, we create it"
-    ENC_PASS=$(perl -e 'print crypt($ARGV[0], "password")' ${PASS})
+    ENC_PASS=$(echo ${PASS} | openssl passwd -1 -stdin)
     useradd -d /data -m -p ${ENC_PASS} -u ${USER_UID} -s /bin/sh ${USER}
 fi
 

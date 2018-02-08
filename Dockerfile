@@ -1,20 +1,19 @@
-FROM ubuntu:14.04
-MAINTAINER Knut Ahlers <knut@ahlers.me>
+FROM alpine
+
+LABEL maintainer Knut Ahlers <knut@ahlers.me>
 
 ENV USER share
 ENV PASS changeme
 ENV USER_UID 1000
 
-ENV DI_VERSION 1.0.1
-ENV DI_HASH 91b9970e6a0d23d7aedf3321fb1d161937e7f5e6ff38c51a8a997278cc00fb0a
+ENV DI_VERSION 1.2.1
 
-ADD https://github.com/Yelp/dumb-init/releases/download/v1.0.1/dumb-init_${DI_VERSION}_amd64 /usr/local/bin/dumb-init
 
-RUN apt-get update \
- && apt-get install -y openssh-server mcrypt \
+RUN apk --no-cache add bash curl openssh-server openssl shadow \
  && mkdir /var/run/sshd && chmod 0755 /var/run/sshd \
- && echo "${DI_HASH}  /usr/local/bin/dumb-init" | sha256sum -c \
- && chmod +x /usr/local/bin/dumb-init
+ && curl -sSfLo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DI_VERSION}/dumb-init_${DI_VERSION}_amd64 \
+ && chmod +x /usr/local/bin/dumb-init \
+ && apk --no-cache del curl
 
 ADD start.sh /usr/local/bin/start.sh
 ADD sshd_config /etc/ssh/sshd_config
